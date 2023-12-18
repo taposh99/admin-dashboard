@@ -115,11 +115,40 @@
                         <th>Service Name</th>
                         <th>Description</th>
                         <th>Icon</th>
+                        <th>Banner</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                
+                <tbody>
+                    @forelse ($allchildtServices as $key => $allChildData)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $allChildData->service->service_name }}</td>
+                        <td>{{ $allChildData->child_description }}</td>
 
+                        <td>
+                            <img src="{{ asset('storage/images/' . $allChildData->child_icon) }}" alt="Icon" style="width: 90px; height: 50px;">
+                        </td>
+                        <td>
+                            <img src="{{ asset('storage/images/' . $allChildData->banner) }}" alt="Icon" style="width: 90px; height: 50px;">
+                        </td>
+
+                        <td>
+                            <a class="btn btn-success" href="" style="font-size: 13px">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a class="btn btn-danger" href="" onclick="return confirm('are you sure !!!')" style="font-size:13px"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="3" class="text-center text-danger">No data available</td>
+                    </tr>
+                    @endforelse
+                </tbody>
 
 
 
@@ -127,7 +156,7 @@
         </div>
     </div>
 
-
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

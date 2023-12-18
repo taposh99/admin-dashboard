@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChildService;
 use App\Models\ParentService;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -37,10 +38,10 @@ class ServiceController extends Controller
 
         $parentService = Service::with('parentService')->latest()->get();
         $allParentServices = ParentService::with('service')->latest()->get();
-        return view('parentService.index', compact('parentService','allParentServices',));
+        return view('parentService.index', compact('parentService', 'allParentServices',));
     }
 
-    
+
 
     public function parentServiceStore(Request $request)
     {
@@ -60,7 +61,7 @@ class ServiceController extends Controller
             $fileName = time() . '.' . $request->image->getClientOriginalExtension();
             $request->image->storeAs('public/images', $fileName);
         }
- 
+
 
         ParentService::create([
             'service_id' => $request->service_id,
@@ -68,7 +69,7 @@ class ServiceController extends Controller
             'image' => $fileName,
 
         ]);
-        
+
         return back()->with('success', 'Data created successfully');
     }
 
@@ -77,10 +78,10 @@ class ServiceController extends Controller
     {
 
         $parentService = Service::with('parentService')->latest()->get();
-        // $allParentServices = ParentService::with('service')->latest()->get();
-        return view('childService.index', compact('parentService',));
+        $allchildtServices = ChildService::with('service')->latest()->get();
+        return view('childService.index', compact('parentService','allchildtServices'));
     }
-    
+
     public function childServiceStore(Request $request)
     {
 
@@ -93,32 +94,31 @@ class ServiceController extends Controller
 
 
 
-        // Initialize $fileName
-        // $fileName = null;
-
-        // Check if an image is provided
+        // Check if an image is provided for 'banner'
         if ($request->hasFile('banner')) {
             $fileNamebanner = time() . '.' . $request->banner->getClientOriginalExtension();
             $request->banner->storeAs('public/images', $fileNamebanner);
+        } else {
+            $fileNamebanner = null;
         }
- 
+
+        // Check if an image is provided for 'child_icon'
         if ($request->hasFile('child_icon')) {
             $fileNameicon = time() . '.' . $request->child_icon->getClientOriginalExtension();
             $request->child_icon->storeAs('public/images', $fileNameicon);
+        } else {
+            $fileNameicon = null;
         }
- 
 
-        ParentService::create([
+
+        ChildService::create([
             'service_id' => $request->service_id,
             'child_description' => $request->child_description,
             'banner' => $fileNamebanner,
             'child_icon' => $fileNameicon,
 
         ]);
-        
+
         return back()->with('success', 'Data created successfully');
     }
-
-
-
 }
