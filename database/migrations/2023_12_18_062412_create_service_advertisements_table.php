@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('service_advertisements', function (Blueprint $table) {
             $table->id();
+            $table->string('service_id');
+            $table->string('ad_title');
+            $table->string('ad_banner');
+            $table->text('ad_description');
             $table->timestamps();
         });
     }

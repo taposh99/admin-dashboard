@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChildService;
 use App\Models\ParentService;
 use App\Models\Service;
+use App\Models\ServiceAdvertisement;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -116,6 +117,49 @@ class ServiceController extends Controller
             'child_description' => $request->child_description,
             'banner' => $fileNamebanner,
             'child_icon' => $fileNameicon,
+
+        ]);
+
+        return back()->with('success', 'Data created successfully');
+    }
+
+     //child service
+     public function advertisementIndex()
+     {
+ 
+         $parentService = Service::with('parentService')->latest()->get();
+         $adServices = ServiceAdvertisement::with('service')->latest()->get();
+     
+         return view('advertisement.index', compact('adServices','parentService'));
+     }
+
+     
+    public function advertisementStore(Request $request)
+    {
+        $request->validate([
+            'service_id' => 'required',
+            'ad_title' => 'required',
+            'ad_banner' => 'required',
+            'ad_description' => 'required',
+        ]);
+
+
+
+        // Initialize $fileName
+        // $fileName = null;
+
+        // Check if an image is provided
+        if ($request->hasFile('ad_banner')) {
+            $fileName = time() . '.' . $request->ad_banner->getClientOriginalExtension();
+            $request->ad_banner->storeAs('public/images', $fileName);
+        }
+
+
+        ServiceAdvertisement::create([
+            'service_id' => $request->service_id,
+            'ad_title' => $request->ad_title,
+            'ad_description' => $request->ad_description,
+            'ad_banner' => $fileName,
 
         ]);
 

@@ -17,7 +17,7 @@
                         <a class="nav-link"href="{{ route('service.index') }}">Create New Service</a>
                         <a class="nav-link" href="{{ route('parentService.index') }}">Parent Service Details</a>
                         <a class="nav-link" href="{{ route('childService.index') }}">Child Service Details</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Advertisement</a>
+                        <a class="nav-link" href="{{ route('advertisement.index') }}">Advertisement</a>
                     </nav>
                 </div>
                 <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">

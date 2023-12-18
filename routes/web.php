@@ -37,4 +37,8 @@ Route::middleware([
     Route::get('/childService/index', [ServiceController::class, 'childServiceIndex'])->name('childService.index');
     Route::post('childService/store', [ServiceController::class, 'childServiceStore'])->name('childService.store');
 
+    //Advertisemt
+    Route::get('/advertisement/index', [ServiceController::class, 'advertisementIndex'])->name('advertisement.index');
+    Route::post('advertisement/store', [ServiceController::class, 'advertisementStore'])->name('advertisement.store');
+
 });
