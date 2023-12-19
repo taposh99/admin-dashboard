@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('banner');
             $table->string('child_icon');
             $table->text('child_description');
+            $table->string('ad_title');
+            $table->string('ad_banner');
+            $table->text('ad_description');
             $table->timestamps();
         });
     }

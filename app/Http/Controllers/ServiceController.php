@@ -91,6 +91,9 @@ class ServiceController extends Controller
             'child_description' => 'required',
             'child_icon' => 'required',
             'banner' => 'required',
+            'ad_title' => 'required',
+            'ad_banner' => 'required',
+            'ad_description' => 'required',
         ]);
 
 
@@ -110,6 +113,12 @@ class ServiceController extends Controller
         } else {
             $fileNameicon = null;
         }
+        
+        if ($request->hasFile('ad_banner')) {
+            $fileName = time() . '.' . $request->ad_banner->getClientOriginalExtension();
+            $request->ad_banner->storeAs('public/images', $fileName);
+        }
+
 
 
         ChildService::create([
@@ -117,6 +126,10 @@ class ServiceController extends Controller
             'child_description' => $request->child_description,
             'banner' => $fileNamebanner,
             'child_icon' => $fileNameicon,
+            'ad_title' => $request->ad_title,
+            'ad_description' => $request->ad_description,
+            'ad_banner' => $fileName,
+            
 
         ]);
 
